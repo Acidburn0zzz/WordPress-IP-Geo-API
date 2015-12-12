@@ -11,7 +11,7 @@ define( 'IP_GEO_BLOCK_MAXMIND_IPV4_ZIP', 'http://geolite.maxmind.com/download/ge
 define( 'IP_GEO_BLOCK_MAXMIND_IPV6_ZIP', 'http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz' );
 
 /**
- * Class for Maxmind (ver. 1.0)
+ * Class for Maxmind (ver. 1.1)
  *
  * URL         : http://dev.maxmind.com/geoip/legacy/geolite/
  * Term of use : http://dev.maxmind.com/geoip/legacy/geolite/#License
@@ -81,11 +81,9 @@ class IP_Geo_Block_API_Maxmind extends IP_Geo_Block_API {
 	}
 
 	public function download( &$db, $args ) {
-		require_once( IP_GEO_BLOCK_PATH . 'includes/download.php' );
-
 		$dir = $this->get_db_dir();
 
-		$res['ipv4'] = ip_geo_block_download_zip(
+		$res['ipv4'] = IP_Geo_Block_Util::download_zip(
 			apply_filters(
 				IP_Geo_Block::PLUGIN_SLUG . '-maxmind-zip-ipv4',
 				IP_GEO_BLOCK_MAXMIND_IPV4_ZIP
@@ -95,7 +93,7 @@ class IP_Geo_Block_API_Maxmind extends IP_Geo_Block_API {
 			$db['ipv4_last']
 		);
 
-		$res['ipv6'] = ip_geo_block_download_zip(
+		$res['ipv6'] = IP_Geo_Block_Util::download_zip(
 			apply_filters(
 				IP_Geo_Block::PLUGIN_SLUG . '-maxmind-zip-ipv6',
 				IP_GEO_BLOCK_MAXMIND_IPV6_ZIP
@@ -132,7 +130,7 @@ class IP_Geo_Block_API_Maxmind extends IP_Geo_Block_API {
 				'value' => $dir . IP_GEO_BLOCK_MAXMIND_IPV4_DAT,
 				'disabled' => TRUE,
 				'after' => '<br /><p id="ip_geo_block_' . $field . '_ipv4" style="margin-left: 0.2em">' .
-				sprintf( $str_last, ip_geo_block_localdate( $options[ $field ]['ipv4_last'] ) ) . '</p>',
+				sprintf( $str_last, IP_Geo_Block_Util::localdate( $options[ $field ]['ipv4_last'] ) ) . '</p>',
 			)
 		);
 
@@ -150,7 +148,7 @@ class IP_Geo_Block_API_Maxmind extends IP_Geo_Block_API {
 				'value' => $dir . IP_GEO_BLOCK_MAXMIND_IPV6_DAT,
 				'disabled' => TRUE,
 				'after' => '<br /><p id="ip_geo_block_' . $field . '_ipv6" style="margin-left: 0.2em">' .
-				sprintf( $str_last, ip_geo_block_localdate( $options[ $field ]['ipv6_last'] ) ) . '</p>',
+				sprintf( $str_last, IP_Geo_Block_Util::localdate( $options[ $field ]['ipv6_last'] ) ) . '</p>',
 			)
 		);
 	}

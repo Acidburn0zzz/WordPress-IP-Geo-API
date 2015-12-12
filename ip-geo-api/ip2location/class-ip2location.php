@@ -11,7 +11,7 @@ define( 'IP_GEO_BLOCK_IP2LOC_IPV4_ZIP', 'http://download.ip2location.com/lite/IP
 define( 'IP_GEO_BLOCK_IP2LOC_IPV6_ZIP', 'http://download.ip2location.com/lite/IP2LOCATION-LITE-DB1.IPV6.BIN.ZIP' );
 
 /**
- * Class for IP2Location (ver. 1.0)
+ * Class for IP2Location (ver. 1.1)
  *
  * URL         : http://www.ip2location.com/
  * Term of use : http://www.ip2location.com/terms
@@ -82,11 +82,9 @@ class IP_Geo_Block_API_IP2Location extends IP_Geo_Block_API {
 	}
 
 	public function download( &$db, $args ) {
-		require_once( IP_GEO_BLOCK_PATH . 'includes/download.php' );
-
 		$dir = $this->get_db_dir();
 
-		$res['ipv4'] = ip_geo_block_download_zip(
+		$res['ipv4'] = IP_Geo_Block_Util::download_zip(
 			apply_filters(
 				IP_Geo_Block::PLUGIN_SLUG . '-ip2location-zip-ipv4',
 				IP_GEO_BLOCK_IP2LOC_IPV4_ZIP
@@ -96,7 +94,7 @@ class IP_Geo_Block_API_IP2Location extends IP_Geo_Block_API {
 			$db['ipv4_last']
 		);
 
-		$res['ipv6'] = ip_geo_block_download_zip(
+		$res['ipv6'] = IP_Geo_Block_Util::download_zip(
 			apply_filters(
 				IP_Geo_Block::PLUGIN_SLUG . '-ip2location-zip-ipv6',
 				IP_GEO_BLOCK_IP2LOC_IPV6_ZIP
@@ -136,7 +134,7 @@ class IP_Geo_Block_API_IP2Location extends IP_Geo_Block_API {
 				 ),
 				'disabled' => TRUE,
 				'after' => '<br /><p id="ip_geo_block_' . $field . '_ipv4" style="margin-left: 0.2em">' .
-				sprintf( $str_last, ip_geo_block_localdate( $options[ $field ]['ipv4_last'] ) ) . '</p>',
+				sprintf( $str_last, IP_Geo_Block_Util::localdate( $options[ $field ]['ipv4_last'] ) ) . '</p>',
 			)
 		);
 
@@ -154,7 +152,7 @@ class IP_Geo_Block_API_IP2Location extends IP_Geo_Block_API {
 				'value' => $dir . IP_GEO_BLOCK_IP2LOC_IPV6_DAT,
 				'disabled' => TRUE,
 				'after' => '<br /><p id="ip_geo_block_' . $field . '_ipv6" style="margin-left: 0.2em">' .
-				sprintf( $str_last, ip_geo_block_localdate( $options[ $field ]['ipv6_last'] ) ) . '</p>',
+				sprintf( $str_last, IP_Geo_Block_Util::localdate( $options[ $field ]['ipv6_last'] ) ) . '</p>',
 			)
 		);
 	}
