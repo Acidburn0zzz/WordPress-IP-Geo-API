@@ -39,9 +39,9 @@ class IP_Geo_Block_API_IP2Location extends IP_Geo_Block_API {
 		// setup database file and function
 		if ( filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
 			$file = apply_filters(
-				IP_Geo_Block::PLUGIN_SLUG . 'ip2location-path',
+				IP_Geo_Block::PLUGIN_SLUG . '-ip2location-path',
 				$this->get_db_dir() . IP_GEO_BLOCK_IP2LOC_IPV4_DAT
-			 );
+			);
 			$type = IP_GEO_BLOCK_API_TYPE_IPV4;
 		}
 		elseif ( filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) {
@@ -129,7 +129,7 @@ class IP_Geo_Block_API_IP2Location extends IP_Geo_Block_API {
 				'field' => $field,
 				'sub-field' => 'ipv4_path',
 				'value' => apply_filters(
-					IP_Geo_Block::PLUGIN_SLUG . 'ip2location-path',
+					IP_Geo_Block::PLUGIN_SLUG . '-ip2location-path',
 					$dir . IP_GEO_BLOCK_IP2LOC_IPV4_DAT
 				 ),
 				'disabled' => TRUE,
